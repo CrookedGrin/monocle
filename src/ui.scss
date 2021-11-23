@@ -1,0 +1,438 @@
+.App {
+  font-size: 12px;
+  background-color: var(--silver);
+  width: 100%;
+}
+
+// ::-webkit-scrollbar {
+//   width: 40px;
+// }
+
+.emptyState {
+  position: absolute;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  top: 2em;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--silver);
+  text-align: left;
+  z-index: 100;
+
+  p {
+    width: 320px;
+    margin-bottom: 0.25em;
+    font-size: var(--font-size-xlarge);
+
+    &.centered {
+      text-align: center;
+    }
+  }
+
+  .logo {
+    width: 320px;
+    height: 200px;
+    // background: url(./maximum_override_logo_2x.png);
+    background-position: 50% 50%;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+}
+
+.expand-collapse {
+  border-radius: 100%;
+  opacity: 0.5;
+  transition: opacity 0.1s;
+
+  .icon {
+    background-size: 150%;
+  }
+}
+
+.buttons {
+  display: flex;
+  flex-flow: row nowrap;
+  margin-bottom: 8px;
+
+  button {
+    margin-right: 8px;
+    cursor: pointer;
+
+    &:disabled {
+      cursor: default;
+    }
+  }
+}
+
+.icon {
+  background-size: contain;
+}
+
+.content {
+  background-color: var(--white);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 2em;
+}
+
+.message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 80vw;
+  margin: 0 auto;
+  text-align: center;
+  height: 90vh;
+  font-size: var(--font-size-large);
+}
+
+.header {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  flex-flow: row nowrap;
+  align-items: center;
+  // border-bottom: 1px solid rgba(0,0,0,0.15);
+  background-color: #e5e5e5;
+  padding: 4px 8px;
+  // height: 36px;
+  overflow: hidden;
+  cursor: pointer;
+  width: 100%;
+
+  label {
+    display: inline-flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    margin-right: 8px;
+  }
+
+  input {
+    margin-left: 4px;
+    height: 1.5em;
+    padding-left: 4px;
+  }
+
+  .expand-collapse {
+    margin-left: -2px;
+    margin-right: -8px;
+  }
+
+  .icon {
+    width: 24px;
+    height: 24px;
+    background-position: center;
+    pointer-events: none;
+  }
+
+  &:hover {
+    .expand-collapse {
+      opacity: 1;
+    }
+  }
+
+  &--loading {
+    padding-left: 22px;
+  }
+}
+
+.nodes {
+  width: 100%;
+  padding: 6px;
+}
+
+.node {
+  position: relative;
+  display: block;
+  width: 100%;
+  text-align: left;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  margin: 6px 0 0 9px;
+  padding-left: 6px;
+
+  &--root {
+    border-left: none;
+    padding-left: 0;
+    margin-left: 0;
+    margin-bottom: 24px;
+  }
+
+  .expand-collapse {
+    margin-right: -6px;
+  }
+
+  .icon {
+    width: 16px;
+    height: 16px;
+    background-position: center;
+    overflow: hidden;
+  }
+
+  .title {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    border-radius: 4px;
+    pointer-events: none;
+    max-width: 100%;
+
+    &--collapsible {
+      pointer-events: inherit;
+      cursor: pointer;
+    }
+
+    &:hover > .expand-collapse {
+      opacity: 1;
+    }
+  }
+}
+
+.node__content {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.node__name {
+  display: inline-block;
+  max-width: calc(90% - 200px);
+  height: 16px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-right: 4px;
+
+  &.hasData {
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 0 4px;
+  }
+}
+
+.node__add {
+  display: inline-block;
+  position: relative;
+
+  &::before {
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #aaa;
+    width: 14px;
+    height: 14px;
+    font-size: 11px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+    top: 0;
+    content: '＋';
+    font-size: 11px;
+    color: var(--purple);
+    transition: all 0.2s ease-out;
+
+  }
+
+  &:hover::before {
+    background-color: var(--silver);
+    color: var(--black);
+    border-color: var(--purple);
+  }
+
+  input {
+    width: 14px;
+    border-radius: 10px;
+    border: 1px solid var(--silver);
+    transition: all .2s ease-out;
+    height: 16px;
+  }
+
+  input.editing {
+    width: 140px;
+    border-radius: 4px;
+  }
+
+  &--editing {
+    &::before {
+      opacity: 0;
+      border-radius: 4px;
+    }
+  }
+}
+
+
+.node__value {
+  display: inline-flex;
+  font-size: var(--font-size-small);
+  color: var(--white);
+  width: fit-content;
+  overflow: hidden;
+  height: 16px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  border: 1px solid #666;
+  background: #888;
+  box-shadow: none;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+  
+  &.editing {
+    background: #fff;
+    border-color: var(--silver);
+    color: #000;
+    cursor: text;
+    transition: all 0.2s ease-out;
+
+    &:hover {
+      background: #fff;
+    }
+  }
+
+  &:focus-visible {
+    outline: none;
+    border-color: var(--purple);
+  }
+
+  &:hover {
+    background: #666;
+  }
+
+  .string {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &--object {
+    display: flex;
+    flex-flow: column nowrap;
+
+    .sub-prop {
+      display: block;
+      margin: 0;
+
+      .sub-key {
+        font-style: italic;
+        margin-right: 4px;
+      }
+
+      .sub-value {
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+// TODO: Implement tooltip that doesn't go outside page
+.hasTooltip {
+  cursor: default;
+  transition: all 0.15s;
+  // box-shadow: 0 2px 4px rgba(0,0,0,0);
+
+  &::after {
+    display: flex;
+    white-space: pre-line;
+    content: attr(data-tooltip);
+    position: absolute;
+    font-size: var(--font-size-xsmall);
+    left: 0;
+    max-width: 100vw;
+    background: #333;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity 0.15s;
+    transition-delay: 0;
+    pointer-events: none;
+  }
+
+  &:hover {
+    // box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    border-radius: 4px;
+    z-index: 10;
+
+    &::after {
+      transition-delay: 0.25s;
+      opacity: 1;
+    }
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  // 75% {
+  //     transform:rotate(360deg);
+  // }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loader {
+  inset: 0;
+  position: fixed;
+  margin: auto;
+  width: 64px;
+  height: 64px;
+  isolation: isolate;
+
+  span {
+    width: 68px;
+    height: 68px;
+    position: absolute;
+    inset: 0;
+    display: inline-block;
+
+    &::before,
+    &::after {
+      content: "⚆";
+      color: var(--purple);
+      font-size: 60px;
+      font-weight: 100;
+      width: auto;
+      height: 64px;
+      border-radius: 8px;
+      position: absolute;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: spin 1.25s ease-in-out infinite;
+      opacity: 0.5;
+    }
+  }
+  span:first-child {
+    &::before {
+      animation-delay: 0;
+      z-index: 4;
+      opacity: 1;
+    }
+    &::after {
+      filter: saturate(125%) brightness(125%) hue-rotate(45deg);
+      animation-delay: 0.05s;
+      z-index: 3;
+    }
+  }
+  span:last-child {
+    &::before {
+      filter: saturate(150%) brightness(170%) hue-rotate(90deg);
+      animation-delay: 0.1s;
+      z-index: 2;
+    }
+    &::after {
+      filter: saturate(175%) brightness(250%) hue-rotate(135deg);
+      animation-delay: 0.15s;
+      z-index: 1;
+    }
+  }
+}
