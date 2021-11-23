@@ -1,5 +1,5 @@
 # Monocle
-<img src="./src/monocle_logo_2x.png" width="400" />
+<img src="./src/Logo@2x.png" width="400" />
 
 ### Inspect and edit your shared Figma plugin metadata!
 
